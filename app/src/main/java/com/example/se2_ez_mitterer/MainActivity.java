@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +29,54 @@ public class MainActivity extends AppCompatActivity {
                 fetchServerResponse();
             }
         });
+
+        findViewById(R.id.btnBerechne).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculate();
+            }
+        });
+    }
+
+    // Aufgabe 3: Ziffern der Größe nach sortieren, Primzahlen werden gestrichen
+    private void calculate() {
+        EditText txtMatNo = findViewById(R.id.txtMatrikelnummer);
+        String inputMatNo = txtMatNo.getText().toString();
+
+        if (inputMatNo == null || inputMatNo.isEmpty()) {
+            // set the label to error message
+            TextView lblResult = findViewById(R.id.lblAntwortResult);
+            lblResult.setText("Es wurde keine Matrikelnummer eingegeben.");
+            return;
+        }
+
+        // split each digit
+        String[] matDigits = inputMatNo.split("");
+
+        // use standard framework to sort the digits (hopefully thats okay and we are not meant to implement it ourself)
+        Arrays.sort(matDigits);
+
+        String[] primes = { "1", "3", "5", "7" };
+        StringBuilder sb = new StringBuilder();
+
+        // only append non primes to stringbuilder
+        for (String digit : matDigits) {
+            boolean isPrime = false;
+
+            for (String prime : primes) {
+                if (digit.equals(prime)) {
+                    isPrime = true;
+                    break;
+                }
+            }
+
+            if (!isPrime) {
+                sb.append(digit);
+            }
+        }
+        // set the label to new text
+        TextView lblResult = findViewById(R.id.lblAntwortResult);
+        lblResult.setText("Das Ergebnis der Berechnung ist \"" + sb.toString() + "\".");
     }
 
     private void fetchServerResponse() {
