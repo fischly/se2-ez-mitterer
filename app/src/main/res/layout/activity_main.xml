@@ -7,12 +7,63 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/lblMatrikelnummer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="Gib deine Matrikelnummer ein"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtMatrikelnummer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.74" />
+
+    <EditText
+        android:id="@+id/txtMatrikelnummer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.26999998" />
+
+    <TextView
+        android:id="@+id/lblAntwort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Antwort vom Server"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lblAntwortResult"
+        android:layout_width="332dp"
+        android:layout_height="87dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:padding="5sp"
+        android:text="Lorem ipsum dolor sit amet, et cetera et cetera. Iulia mea amica est. lol"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblAntwort"
+        app:layout_constraintVertical_bias="0.13999999" />
+
+    <Button
+        android:id="@+id/btnAbschicken"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Abschicken"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.531"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblAntwortResult" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
