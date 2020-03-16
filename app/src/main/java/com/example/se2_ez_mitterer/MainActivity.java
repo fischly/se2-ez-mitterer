@@ -47,37 +47,19 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     connection.connect();
 
-                    final String response = connection.getResponseFromMatrikelnummer(inputMatNo);
+                    String response = connection.getResponseFromMatrikelnummer(inputMatNo);
 
                     // let the main thread change the textfield (UI changes are not permitted on other threads than main thred)
-                    handler.post(new Runnable() {
-                        public void run() {
-                            TextView lblResult = findViewById(R.id.lblAntwortResult);
-                            lblResult.setText(response);
-
-                            // activate the button again
-                            Button button = findViewById(R.id.btnAbschicken);
-                            button.setEnabled(true);
-                        }
-                    });
+                    handler.post(new UpdateResultViewRunnable(response));
 
                     connection.close();
                 } catch (IOException ioEx) {
-                    final String errorMessage = ioEx.getMessage();
+                    String errorMessage = ioEx.getMessage();
 
                     Log.e("myapplol", errorMessage);
 
                     // let the main thread change the textfield, so the user knows an error occured
-                    handler.post(new Runnable() {
-                        public void run() {
-                            TextView lblResult = findViewById(R.id.lblAntwortResult);
-                            lblResult.setText("Error: " + errorMessage);
-
-                            // activate the button again
-                            Button button = findViewById(R.id.btnAbschicken);
-                            button.setEnabled(true);
-                        }
-                    });
+                    handler.post(new UpdateResultViewRunnable("Error: " + errorMessage));
                 }
             }
         };
@@ -85,5 +67,22 @@ public class MainActivity extends AppCompatActivity {
         new Thread(serverRunnable).start();
     }
 
+    private class UpdateResultViewRunnable implements Runnable {
+        private String text;
 
+        public UpdateResultViewRunnable(String newText) {
+            this.text = newText;
+        }
+
+        @Override
+        public void run() {
+            // set the label to new text
+            TextView lblResult = findViewById(R.id.lblAntwortResult);
+            lblResult.setText(this.text);
+
+            // activate the button again
+            Button button = findViewById(R.id.btnAbschicken);
+            button.setEnabled(true);
+        }
+    }
 }
